@@ -7,20 +7,8 @@
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-    <style>
-        .overlay{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente blanco */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-        }
-    </style>
+    <!-- CSS Styles.css -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-primary-subtle">
     <div class="container d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
@@ -102,6 +90,12 @@
         async function handleSubmit(event) {
             event.preventDefault();
 
+            // Validar que los campos requeridos no estén vacíos
+            if (!form.checkValidity()) {
+                // Bootstrap mostrará los mensajes de error automáticamente, no es necesario hacer nada más aquí
+                return;
+            }
+
             // Mostrar loader utilizando Bootstrap
             const loader = document.createElement('div');
             loader.className = 'overlay';
@@ -122,10 +116,15 @@
                     // Resetea el formulario
                     // form.reset();
                     // Ocultar loader después de 3 segundos (ajusta el tiempo según tus necesidades)
+
                     setTimeout(() => {
                         loader.remove();
+                        // Recarga la página
+                        // location.reload();
 
-                        Swal.fire({
+                    }, 3000);
+
+                    Swal.fire({
                             title: "Éxito",
                             text: "Mensaje enviado correctamente",
                             icon: "success",
@@ -133,12 +132,13 @@
                             timer: 3000,
                             allowOutsideClick: false,
                             showConfirmButton: false
-                        });
-
-                        // Recarga la página
+                    });
+                    
+                    setTimeout(() => {
+                        //Recarga la pagina
                         location.reload();
-
                     }, 3000);
+
                 } else {
                     throw new Error('Error en la solicitud');
                 }
