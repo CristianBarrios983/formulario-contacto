@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-primary-subtle">
+    <div class="container d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-contact d-flex justify-content-center align-items-center">
+                <form id="contactform" class="needs-validation bg-white p-3 my-4" id="form" action="https://formsubmit.co/barrioscristian.9908@gmail.com" method="POST" style="width: 25rem;" novalidate>
+                <h1 class="text-center fs-2">Contacto</h1>
+                  <!-- Para evitar rellenar captcha -->
+                  <input type="hidden" name="_captcha" value="false">
+                  <input type="hidden" name="_subject" value="Nuevo mensaje">
+                  <div class="mb-3 d-flex gap-2">
+                    <div class="">
+                      <input type="text" class="form-control form-control-lg fs-6 rounded-0 border-secondary-subtle" id="nombre" name="nombre" placeholder="Nombre" required>
+                      <div class="invalid-feedback">
+                        El campo no pueden estar vacios
+                      </div>
+                    </div>
+                    <div class="">
+                      <input type="text" class="form-control form-control-lg fs-6 rounded-0 border-secondary-subtle" id="asunto" name="asunto" placeholder="Asunto" required>
+                      <div class="invalid-feedback">
+                        El campo no pueden estar vacios
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <input type="email" class="form-control form-control-lg fs-6 rounded-0 border-secondary-subtle" id="email" name="email" placeholder="Correo electronico" required>
+                    <div class="invalid-feedback">
+                      Ingrese un correo por favor
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <textarea name="mensaje" id="mensaje" cols="30" rows="10" class="form-control form-control-lg fs-6 rounded-0 border-secondary-subtle" placeholder="Deje su mensaje aqui..." required></textarea>
+                    <div class="invalid-feedback">
+                      Debe escribir un mensaje
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <button type="submit" class="btn btn-primary fs-5 rounded-0 d-block w-100">Enviar mensaje</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript CDN Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- Validacion Bootstrap -->
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script>
+
+    <!-- Para el envio del formulario -->
+    <script>
+        const $form = document.querySelector('#contactform');
+
+        $form.addEventListener('submit', handleSubmit);
+
+            async function handleSubmit(event) {
+                event.preventDefault();
+                const form = new FormData(this);
+                const response = await fetch(this.action, {
+                method: this.method,
+                body: form,
+                headers: {
+                        'Accept': 'application/json'
+                }
+                    });
+                if (response.ok) {
+                this.reset();
+                Swal.fire({
+                    title: "Exito",
+                    text: "Mensaje enviado correctamente",
+                    icon: "success",
+                    backdrop: true,
+                    timer: 3000,
+                    allowOutsideClick: false,
+                    showConfirmButton: false
+                });
+                }
+            }
+    </script>
+
+    <!-- Sweetalert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Mensaje con Sweetalert2 de prueba -->
+    <!-- <script>
+        Swal.fire({
+            title: "Exito",
+            text: "Mensaje enviado correctamente",
+            icon: "success",
+            backdrop: true,
+            timer: 3000,
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+    </script> -->
+</body>
+</html>
